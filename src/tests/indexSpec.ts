@@ -18,9 +18,7 @@ it("expect get_path with thumb and fjord to return path", async () => {
   expect(get_path("fjord", "thumb")).toEqual("././asset/thumb/fjord.jpg");
 });
 it("expect image width 500 height 500 name encenadaport", async () => {
-  await request.get(
-    "/api?filename=encenadaport&width=500&height=500"
-  );
+  await request.get("/api?filename=encenadaport&width=500&height=500");
   const image = await sharp(
     path.join(
       __dirname,
