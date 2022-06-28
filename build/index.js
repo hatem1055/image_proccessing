@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
 var __generator = (this && this.__generator) || function (thisArg, body) {
     var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
     return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
@@ -55,12 +56,12 @@ function returnCache(req, res, next) {
                     height = Number(req.query.height);
                     width = Number(req.query.width);
                     outputFileName = "".concat(filename, "_").concat(height, "_").concat(width);
-                    outDir = 'thumb';
+                    outDir = "thumb";
                     return [4 /*yield*/, fs_1.default.existsSync(get_path(outputFileName, outDir))];
                 case 1:
                     outputFileExisist = _a.sent();
                     if (outputFileExisist) {
-                        res.sendFile(get_path(outputFileName, outDir), { root: '.' });
+                        res.sendFile(get_path(outputFileName, outDir), { root: "." });
                         return [2 /*return*/];
                     }
                     next();
@@ -74,8 +75,8 @@ app.use(returnCache);
 function get_path(outputFileName, dir) {
     return "././asset/".concat(dir, "/").concat(outputFileName, ".jpg");
 }
-app.get('/api', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var filename, height, width, outputFileName, outDir, inDir, inputFileName, inputFileExist;
+app.get("/api", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var filename, height, width, outputFileName, outDir, inDir, inputFileName, inputFileExist, e_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -83,26 +84,39 @@ app.get('/api', function (req, res) { return __awaiter(void 0, void 0, void 0, f
                 height = Number(req.query.height);
                 width = Number(req.query.width);
                 outputFileName = "".concat(filename, "_").concat(height, "_").concat(width);
-                outDir = 'thumb';
-                inDir = 'full';
+                outDir = "thumb";
+                inDir = "full";
                 inputFileName = filename;
                 return [4 /*yield*/, fs_1.default.existsSync(get_path(inputFileName, inDir))];
             case 1:
                 inputFileExist = _a.sent();
                 if (!inputFileExist) {
-                    return [2 /*return*/, res.status(404).json({ message: 'File Not Found' })];
-                    ;
+                    return [2 /*return*/, res.status(404).json({ message: "File Not Found" })];
                 }
-                return [4 /*yield*/, fs_1.default.appendFile(get_path(outputFileName, outDir), '', function () { })]; // create impty photo
+                _a.label = 2;
             case 2:
-                _a.sent(); // create impty photo
-                (0, sharp_1.default)(get_path(inputFileName, inDir)).resize({ height: height, width: width }).toFile(get_path(outputFileName, outDir));
-                res.sendFile(get_path(outputFileName, outDir), { root: '.' });
-                return [2 /*return*/];
+                _a.trys.push([2, 5, , 6]);
+                return [4 /*yield*/, fs_1.default.appendFile(get_path(outputFileName, outDir), "", function () {
+                        console.log("append");
+                    })];
+            case 3:
+                _a.sent(); // create impty image
+                return [4 /*yield*/, (0, sharp_1.default)(get_path(inputFileName, inDir))
+                        .resize({ height: height, width: width })
+                        .toFile(get_path(outputFileName, outDir))];
+            case 4:
+                _a.sent();
+                console.log("send");
+                res.sendFile(get_path(outputFileName, outDir), { root: "." });
+                return [3 /*break*/, 6];
+            case 5:
+                e_1 = _a.sent();
+                return [2 /*return*/, res.status(500).json({ message: "Unknown Error Occured" })];
+            case 6: return [2 /*return*/];
         }
     });
 }); });
 app.listen(port, function () {
-    console.log('running');
+    console.log("running");
 });
 exports.default = { app: app, get_path: get_path };

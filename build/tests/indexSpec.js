@@ -46,13 +46,13 @@ var path_1 = __importDefault(require("path"));
 var app = index_1.default.app;
 var get_path = index_1.default.get_path;
 var request = (0, supertest_1.default)(app);
-it('expect request to test to return 404 error', function () { return __awaiter(void 0, void 0, void 0, function () {
+it("expect request to test to return 404 error", function () { return __awaiter(void 0, void 0, void 0, function () {
     var e_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, request.get('/api?filename=test&width=500&height=500')];
+                return [4 /*yield*/, request.get("/api?filename=test&width=500&height=500")];
             case 1:
                 _a.sent();
                 return [3 /*break*/, 3];
@@ -64,20 +64,20 @@ it('expect request to test to return 404 error', function () { return __awaiter(
         }
     });
 }); });
-it('expect get_path with thumb and fjord to return path', function () { return __awaiter(void 0, void 0, void 0, function () {
+it("expect get_path with thumb and fjord to return path", function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        expect(get_path('fjord', 'thumb')).toEqual('././asset/thumb/fjord.jpg');
+        expect(get_path("fjord", "thumb")).toEqual("././asset/thumb/fjord.jpg");
         return [2 /*return*/];
     });
 }); });
-it('expect image width 500 height 500 name encenadaport', function () { return __awaiter(void 0, void 0, void 0, function () {
-    var r, image;
+it("expect image width 500 height 500 name encenadaport", function () { return __awaiter(void 0, void 0, void 0, function () {
+    var image;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, request.get('/api?filename=encenadaport&width=500&height=500')];
+            case 0: return [4 /*yield*/, request.get("/api?filename=encenadaport&width=500&height=500")];
             case 1:
-                r = _a.sent();
-                return [4 /*yield*/, (0, sharp_1.default)(path_1.default.join(__dirname, '..', '..', 'asset', 'thumb', 'encenadaport_500_500.jpg')).metadata()];
+                _a.sent();
+                return [4 /*yield*/, (0, sharp_1.default)(path_1.default.join(__dirname, "..", "..", "asset", "thumb", "encenadaport_500_500.jpg")).metadata()];
             case 2:
                 image = _a.sent();
                 expect(image.width).toEqual(500);
